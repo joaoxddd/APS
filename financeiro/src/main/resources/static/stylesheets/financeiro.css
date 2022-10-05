@@ -1,0 +1,198 @@
+/*
+######################
+# UTILIDADES
+######################
+*/
+
+.bw-field-action {
+ display: flex;
+}
+
+.bw-glyphicon-large {
+    font-size: 18px;
+}
+
+.bw-field-action_icon {
+ margin: 7px 0 0 5px;
+}
+
+.bw-required > .control-label:after {
+	content: "*";
+}
+
+.bw-field-set {
+	display: block;
+	padding-inline-start: 0.75em;
+	padding-inline-end: 0.75em;
+	border: 1px solid #ccc !important;
+	border-style: ridge;
+	border-radius: 4px;
+	box-shadow: 3px 4px 5px rgba(0,0,0,0.2);
+	padding-block-start: 0.35em;
+	padding-block-end: 0.625em;
+	margin-bottom: 20px;
+}
+
+.bw-field-set-legend {
+	display: block;
+	width: auto;
+	margin-bottom: 0px;
+	font-size: 16px;
+	line-height: inherit;
+	border-bottom: 1px solid #e5e5e5;
+	padding-inline-start: 2px;
+	padding-inline-end: 2px;
+	border-style: none;
+	color: #337ab7;
+}
+
+.has-feedback label~.form-control-feedback {
+	right: 15px;
+}
+
+/*
+######################
+# COMPONENTES
+######################
+*/
+
+/* Field Action */
+.bw-field-action {
+	display: flex;
+}
+
+/* Tabela Simples */
+.bw-tabela-simples {
+	margin-top: 15px;
+}
+
+.bw-tabela-simples table tr th {
+	border-bottom-width: 1px;
+}
+
+.bw-tabela-simples table tr td { 
+    border-top: none;
+    border-bottom: 1px solid #e7eaec;
+    padding: 10px;
+    vertical-align: initial;
+}
+
+/* Alterando o titulo do arial-label */
+[aria-label] {
+position: relative;
+}
+
+[aria-label]::after {
+content: attr(aria-label);
+display: none;
+position: absolute;
+top: 110%;
+left: 0px;
+z-index: 5000;
+pointer-events: none;
+padding: 8px 10px;
+text-decoration: none;
+font-size: .9em;
+color: #fff;
+background-color: #000;
+}
+
+[aria-label]:hover::after {
+display: block;
+}
+
+[aria-label-endereco] {
+	position: relative;
+}
+
+[aria-label-endereco]::after {
+	content: attr(aria-label-endereco);
+	display: none;
+	position: absolute;
+	top: 110%;
+	left: -85px;
+	z-index: 5000;
+	pointer-events: none;
+	padding: 8px 10px;
+	text-decoration: none;
+	font-size: .9em;
+	color: #fff;
+	background-color: #000;
+}
+
+[aria-label-endereco]:hover::after {
+	display: block;
+}
+
+/* Colocando o li no lado direito */
+li.rightside { 
+    float:right; 
+    line-height:34px;
+    margin-right: 30px;
+}
+
+/* Mudar a cor a ser selecionado um li */
+.nav-tabs > li > a{
+  color: black;
+}
+
+.nav-tabs > li > a:hover{
+  color: #0072b3;
+}
+
+.nav-tabs > li.active> a {
+    color: #0072b3 !important;
+}
+
+/* Ocultar botÃ£o novo de endereÃ§o e telefone */
+.escondido {
+	display: none;
+}
+
+/* Escolhas de tipo de pessoas */
+.desabilitado {
+	background: #EEE; 
+  	pointer-events: none;
+  	touch-action: none;
+}
+
+.disabled {
+	pointer-events: none;
+}
+
+.col-sm-12 {
+	width: 100%;
+}
+
+
+/* Colunas comuns */
+.table-col-acoes {
+	width: 80px;
+}
+
+/* Colunas genéricas */
+.table-col{ }
+
+.table-col-80{ width: 80px; } 
+
+.table-col-100{	width: 100px; }
+
+.table-col-110{	width: 110px; }
+
+.table-col-120{	width: 120px; }
+
+.table-col-140{	width: 140px; }
+
+.table-col-160{	width: 160px; }
+
+.table-col-180{	width: 180px; }
+
+.table-col-200{	width: 200px; }
+
+.table-col-220{	width: 220px; }
+
+.table-col-250{	width: 250px; }
+
+.table-col-300{	width: 300px; }
+
+.table-col-400{	width: 400px; }

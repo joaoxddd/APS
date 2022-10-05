@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadraoCadastro}"
+	xmlns:financeiro="http://financeiro.npi.com">
+	
+<head>
+	<title>Cadastro de Forma de Pagamento</title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">		
+ 					<h1 th:if="${formaPagamento.novo}">Cadastro de Forma de Pagamento</h1> 
+					<h1 th:unless="${formaPagamento.novo}" th:text="|Edição da Forma de Pagamento: ${formaPagamento.descricao}|"></h1>
+				</div>
+			
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/formaspagamentos}">
+							<i class="glyphicon  glyphicon glyphicon-search" th:if="${formaPagamento.novo}"></i> 
+							<span class="hidden-xs  hidden-sm" th:if="${formaPagamento.novo}">Pesquisar</span>
+							<i class="glyphicon  glyphicon glyphicon-remove" th:unless="${formaPagamento.novo}"></i> 
+							<span class="hidden-xs  hidden-sm" th:unless="${formaPagamento.novo}">Cancelar</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+	
+		<th:block th:include="fragments/MensagensSucesso"></th:block>
+	
+		<form method="POST" th:object="${formaPagamento}" class="form-vertical  js-form-loading"
+				th:action="${formaPagamento.novo} ? @{/formaspagamentos/novo} : 
+						@{/formaspagamentos/{id}(id=${formaPagamento.id})}">
+		
+			<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+			
+			<input type="hidden" th:field="*{id}"/>
+			
+			<div class="row">
+				<div class="form-group  col-sm-6  bw-required" financeiro:classforerror="descricao">
+					<label for="descricao" class="control-label">Descrição</label>
+					<input type="text" class="form-control" id="descricao" autofocus="autofocus" 
+						th:field="*{descricao}" maxlength="50"/>
+				</div>
+				
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="sigla">
+					<label for="sigla" class="control-label">Sigla</label>
+					<input type="text" class="form-control" id="sigla" th:field="*{sigla}" maxlength="10"/>
+				</div>
+				
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="tipo">
+					<label for="tipo" class="control-label">Tipo</label>
+					<select id="tipo" class="form-control" th:field="*{tipo}">
+						<option value="">Selecione o tipo</option>
+						<option th:each="tipoPagamento : ${tipoPagamento}" th:value="${tipoPagamento}"
+								 th:text="${tipoPagamento.descricao}"></option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="parcela">
+					<label for="parcela" class="control-label">Quantidade de Parcelas</label>
+					<input type="number" class="form-control" id="parcela" th:field="*{parcela}" min="1"/>
+				</div>
+				
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="diaCredito">
+					<label for="diaCredito" class="control-label">Quantidade de Dias de Crédito</label>
+					<input type="number" class="form-control" id="diaCredito" th:field="*{diaCredito}" min="0"/>
+				</div>
+				
+				<div class="form-group  col-sm-3">							
+					<label for="status" class="control-label">Status</label>
+					<div>
+						<input id="status" type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
+								data-on-text="Ativo" data-off-text="Inativo" th:field="*{status}"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Salvar</button>
+			</div>
+		</form>
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script>$('.js-status').bootstrapSwitch();</script>
+</th:block>
+</body>
+</html>

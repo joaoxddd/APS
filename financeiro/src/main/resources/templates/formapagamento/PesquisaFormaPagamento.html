@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadraoCadastro}"
+	xmlns:financeiro="http://financeiro.npi.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+	
+<head>
+	<title>Pesquisa de Forma de Pagamento</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">		
+ 					<h1>Pesquisa de Forma de Pagamento</h1> 
+				</div>
+			
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/formaspagamentos/novo}">
+							<i class="glyphicon  glyphicon-plus-sign"></i>
+							<span class="hidden-xs  hidden-sm">Cadastrar</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<form method="GET" th:object="${formaPagamentoFilter}">
+			<div class="row">
+				<div class="form-group  col-sm-12">
+					<label class="control-label" for="descricao">Descrição</label>
+					<input type="text" class="form-control" id="descricao" autofocus="autofocus" 
+						th:field="*{descricao}" maxlength="50"/>
+				</div>	
+			</div>
+			
+			<button type="submit" class="btn  btn-primary">Pesquisar</button>
+		</form>
+		
+		<div class="table-responsive  bw-tabela-simples">
+			<table class="table  table-hover">
+				<thead>
+					<tr>
+						<th class="table-col-80">Código</th>
+						<th class="table-col">
+							<financeiro:order page="${pagina}" field="descricao" text="Descrição"/>
+						</th>
+						<th class="table-col-100">Sigla</th>
+						<th class="table-col-140">Quantidade de Dias de Crédito</th>
+						<th class="table-col-120">Quantidade Parcelas</th>
+						<th class="table-col-acoes"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="formaPagamento : ${pagina.conteudo}">
+						<td class="text-center" th:text="${formaPagamento.id}"></td>
+						<td th:text="${formaPagamento.descricao}"></td>
+						<td th:text="${formaPagamento.sigla}"></td>
+						<td th:text="${formaPagamento.diaCredito}"></td>
+						<td th:text="${formaPagamento.parcela}"></td>
+						<td class="text-center">
+							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar"
+								th:href="@{formaspagamentos/{id}(id=${formaPagamento.id})}"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir"
+									data:url="@{formaspagamentos/{id}(id=${formaPagamento.id})}"
+									data:objeto="${formaPagamento.descricao}">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+					</tr>
+					<tr th:if="${pagina.vazia}">
+						<td colspan="4">Nenhum forma de pagamento encontrado</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<financeiro:pagination page="${pagina}"/>
+		
+	</div>
+	
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script>$('.js-status').bootstrapSwitch();</script>
+</th:block>
+</body>
+</html>

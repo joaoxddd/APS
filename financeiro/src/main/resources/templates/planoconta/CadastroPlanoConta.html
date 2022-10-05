@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/LayoutPadraoCadastro}"
+	xmlns:financeiro="http://financeiro.npi.com">
+	
+<head>
+	<title>Cadastro de Plano de Conta</title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
+	<style>
+		input[type="checkbox"]{
+			width: 15px;
+			height: 15px;
+		}
+		
+		.form-check-label {
+			margin-bottom: 1px;
+		}
+	</style>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-10">		
+ 					<h1 th:if="${planoConta.novo}">Cadastro de Plano de Conta</h1> 
+					<h1 th:unless="${planoConta.novo}" th:text="|Edição do Plano de Conta: ${planoConta.descricao}|"></h1>
+				</div>
+			
+				<div class="col-xs-2">
+					<div class="aw-page-header-controls">
+						<a class="btn  btn-default" th:href="@{/planosconta}">
+							<i class="glyphicon  glyphicon glyphicon-search" th:if="${planoConta.novo}"></i> 
+							<span class="hidden-xs  hidden-sm" th:if="${planoConta.novo}">Pesquisar</span>
+							<i class="glyphicon  glyphicon glyphicon-remove" th:unless="${planoConta.novo}"></i> 
+							<span class="hidden-xs  hidden-sm" th:unless="${planoConta.novo}">Cancelar</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+	
+		<th:block th:include="fragments/MensagensSucesso"></th:block>
+	
+		<form method="POST" th:object="${planoConta}" class="form-vertical  js-form-loading"
+				th:action="${planoConta.novo} ? @{/planosconta/novo} : @{/planosconta/{id}(id=${planoConta.id})}">
+		
+			<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+			
+			<input type="hidden" th:field="*{id}"/>
+			
+			<div class="row">
+				<div class="form-group  col-sm-6  bw-required" financeiro:classforerror="descricao">
+					<label for="descricao" class="control-label">Descrição</label>
+					<input type="text" class="form-control" id="descricao" autofocus="autofocus" 
+						th:field="*{descricao}" maxlength="45"/>
+				</div>
+				
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="ordem">
+					<label for="ordem" class="control-label">Ordem</label>
+					<input type="text" class="form-control" id="ordem" th:field="*{ordem}" maxlength="15"/>
+				</div>
+				
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="nivel">
+					<label for="nivel" class="control-label">Nível</label>
+					<select id="nivel" class="form-control" th:field="*{nivel}">
+						<option value="">Selecione o nível</option>
+						<option th:each="nivel : ${nivel}" th:value="${nivel}" th:text="${nivel.descricao}"></option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="tipo">
+					<label for="tipo" class="control-label">Tipo</label>
+					<select id="tipo" class="form-control" th:field="*{tipo}">
+						<option value="">Selecione um tipo</option>
+						<option th:each="tipo : ${tipo}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
+					</select>
+				</div>
+				
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="modelo">
+					<label for="modelo" class="control-label">Modelo</label>
+					<select id="modelo" class="form-control" th:field="*{modelo}">
+						<option value="">Selecione um tipo</option>
+						<option th:each="modelo : ${modelo}" th:value="${modelo}" th:text="${modelo.descricao}"></option>
+					</select>
+				</div>
+				
+				<div class="form-group  col-sm-3  bw-required" financeiro:classforerror="acesso">
+					<label for="acesso" class="control-label">Acesso</label>
+					<select id="acesso" class="form-control" th:field="*{acesso}">
+						<option value="">Selecione um acesso</option>
+						<option th:each="acesso : ${acesso}" th:value="${acesso}" th:text="${acesso.descricao}"></option>
+					</select>
+				</div>
+				
+				<div class="form-group  col-sm-3">							
+					<label for="status" class="control-label">Status</label>
+					<div>
+						<input id="status" type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
+								data-on-text="Ativo" data-off-text="Inativo" th:field="*{status}"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="form-group  col-sm-3">	
+					<div class="form-check">
+  						<input class="form-check-input" type="checkbox" value="S" id="lancamento" th:field="*{lancamento}">
+  						<label class="form-check-label" for="lancamento">Lançamento</label>
+					</div>
+				
+					<div class="form-check">
+  						<input class="form-check-input" type="checkbox" value="S" id="previsao" th:field="*{previsao}">
+  						<label class="form-check-label" for="previsao">Previsão</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Salvar</button>
+			</div>
+		</form>
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script>$('.js-status').bootstrapSwitch();</script>
+</th:block>
+</body>
+</html>

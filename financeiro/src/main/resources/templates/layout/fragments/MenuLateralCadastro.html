@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" xmlns:financeiro="http://funeraria.npi.com">
+<body>
+	<aside class="aw-layout-sidebar js-sidebar" th:fragment="layout-sidebar">
+		<div class="aw-layout-sidebar__content">
+			<nav class="aw-menu js-menu">
+				<ul class="aw-menu__list">
+					<li class="aw-menu__item">
+						<a href="#">
+							<i class="fa fa-fw fa-file-text">
+							</i><span>Básicos</span><i class="aw-menu__navigation-icon fa"></i>
+						</a>
+						<ul class="aw-menu__list aw-menu__list--sublist">
+							<li class="aw-menu__item aw-menu__item--link" financeiro:menu="@{/planosconta.*}">
+								<a th:href="@{/planosconta}">Plano de Contas</a>
+							</li>
+							
+							<li class="aw-menu__item aw-menu__item--link" financeiro:menu="@{/formaspagamentos.*}">
+								<a th:href="@{/formaspagamentos}">Formas de pagamento</a>
+							</li>
+						</ul>
+					</li>
+					
+					<li class="aw-menu__item">
+						<a href="#">
+							<i class="fa fa-fw fa-file-text">
+							</i><span>Endereços</span><i class="aw-menu__navigation-icon fa"></i>
+						</a>
+						<ul class="aw-menu__list aw-menu__list--sublist">
+							<li class="aw-menu__item aw-menu__item--link" financeiro:menu="@{/estados.*}">
+								<a th:href="@{/estados}">Estados</a>
+							</li>
+							
+						</ul>
+					</li>
+					<li class="aw-menu__item">
+						<a href="#">
+							<i class="fa fa-fw fa-file-text">
+							</i><span>Específicos </span><i class="aw-menu__navigation-icon fa"></i>
+						</a>
+						<ul class="aw-menu__list aw-menu__list--sublist">
+							<li class="aw-menu__item aw-menu__item--link" financeiro:menu="@{/gruposcliente.*}">
+								<a th:href="@{/gruposcliente}">Grupos de cliente</a>
+							</li>
+							
+							<li class="aw-menu__item aw-menu__item--link" financeiro:menu="@{/tiposclientes.*}">
+								<a th:href="@{/tiposclientes}">Tipos de clientes</a>
+							</li>
+						</ul>
+					</li>				
+				</ul>
+			</nav>
+		</div>
+	</aside>
+</body>
+</html>
